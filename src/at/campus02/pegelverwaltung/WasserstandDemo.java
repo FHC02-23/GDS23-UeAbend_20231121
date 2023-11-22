@@ -1,5 +1,7 @@
 package at.campus02.pegelverwaltung;
 
+import java.util.ArrayList;
+
 // umschalt + F6 => Namensänderungen
 public class WasserstandDemo {
 
@@ -28,12 +30,44 @@ public class WasserstandDemo {
                 14.0,
                 120_000);
 
+        Wasserstand w5 = new Wasserstand(2,
+                "Mur",
+                6.0,
+                8.0,
+                140_000);
+
         System.out.println("w1 = " + w1);
         System.out.println("w2 = " + w2);
 
         WasserstandManager wasserstandManager = new WasserstandManager();
-        wasserstandManager.add(w1);
+        wasserstandManager.add(w3);
         wasserstandManager.add(w2);
+        wasserstandManager.add(w1);
+        wasserstandManager.add(w4); // kopieren -> STRG + D
+        wasserstandManager.add(w5);
 
+        Wasserstand foundBy1 = wasserstandManager.findById(1);
+        System.out.println("foundBy1 = " + foundBy1);
+
+//        System.out.println(wasserstandManager.findAllByGewaesser("Mur"));
+        ArrayList<Wasserstand> foundByMur = wasserstandManager.findAllByGewaesser("Mur");
+        System.out.println("foundByMur = " + foundByMur);
+        System.out.println("foundByMur.size() = " + foundByMur.size());
+
+        System.out.println(wasserstandManager.getUniqueWasserstaende());
+        System.out.println(wasserstandManager.getUniqueGewaesserNames());
+
+        System.out.println(wasserstandManager.countOfWasserstandPerGewaesser());
+        System.out.println(wasserstandManager.countOfWasserstandPerGewaesser2());
+
+//        HashMap<String, Integer> countOfGewaesser = wasserstandManager.countOfWasserstandPerGewaesser2();
+//        wasserstandManager.printCountOfWasserstandPerGewaesser(countOfGewaesser);
+
+        wasserstandManager.printCountOfWasserstandPerGewaesser(wasserstandManager.countOfWasserstandPerGewaesser2());
+        wasserstandManager.printCountOfWasserstandPerGewaesser2(wasserstandManager.countOfWasserstandPerGewaesser2());
+
+        wasserstandManager.fillNameToWasserstandMap();
+        ArrayList<Wasserstand> wasserstaendeMur = wasserstandManager.getByName("Mur");
+        System.out.println(wasserstaendeMur);
     }
 }
