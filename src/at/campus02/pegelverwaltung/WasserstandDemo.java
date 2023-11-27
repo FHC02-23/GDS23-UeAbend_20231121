@@ -69,5 +69,20 @@ public class WasserstandDemo {
         wasserstandManager.fillNameToWasserstandMap();
         ArrayList<Wasserstand> wasserstaendeMur = wasserstandManager.getByName("Mur");
         System.out.println(wasserstaendeMur);
+
+        Wasserstand w = wasserstandManager.findNewestWasserstandForGewaesser("Donau");
+        System.out.println("newest Donau -> " + w);
+
+        w = wasserstandManager.findOldestWasserstandForGewaesser("Mur");
+        System.out.println("oldest Mur -> " + w);
+
+        ArrayList<Wasserstand> ws = wasserstandManager.findForAlarmierung();
+        System.out.println("alarm -> " + ws);
+
+        ws = wasserstandManager.findByZeitspanne(115_000, 130_000, "Donau");
+        System.out.println("Donau innerhalb Zeitraum -> " + ws);
+
+        ws = wasserstandManager.findByZeitspanne(90_000, 110_000, "Mur");
+        System.out.println("Mur innerhalb Zeitraum -> " + ws);
     }
 }

@@ -121,4 +121,58 @@ public class WasserstandManager {
     public ArrayList<Wasserstand> getByName(String name) {
         return nameToWasserstandMap.get(name);
     }
+
+
+    /**
+     * weitere Methoden vom Übungsblatt
+     */
+
+    public Wasserstand findNewestWasserstandForGewaesser(String gewaesserName) {
+        int sekunden = 0;
+        Wasserstand newest = null;
+        for(Wasserstand w : wasserstandList) {
+            if(w.getGewaesserName().equals(gewaesserName)) {
+                if(w.getZeitpunkt() > sekunden) {
+                    newest = w;
+                    sekunden = w.getZeitpunkt();
+                }
+            }
+        }
+        return newest;
+    }
+
+    public Wasserstand findOldestWasserstandForGewaesser(String gewaesserName) {
+        int sekunden = Integer.MAX_VALUE;
+        Wasserstand oldest = null;
+        for(Wasserstand w : wasserstandList) {
+            if(w.getGewaesserName().equals(gewaesserName)) {
+                if(w.getZeitpunkt() < sekunden) {
+                    oldest = w;
+                    sekunden = w.getZeitpunkt();
+                }
+            }
+        }
+        return oldest;
+    }
+
+    public  ArrayList<Wasserstand> findForAlarmierung() {
+        ArrayList<Wasserstand> found = new ArrayList<>();
+        for(Wasserstand w : wasserstandList) {
+            if(w.getMessWert() >= w.getMessWertFuerAlarmierung()) {
+                found.add(w);
+            }
+        }
+        return found;
+    }
+
+    public  ArrayList<Wasserstand> findByZeitspanne(int von, int bis, String name) {
+        ArrayList<Wasserstand> found = new ArrayList<>();
+        for(Wasserstand w : wasserstandList) {
+            if(w.getGewaesserName().equals(name)
+                    && (w.getZeitpunkt() >= von && w.getZeitpunkt() <= bis) ) {
+                found.add(w);
+            }
+        }
+        return found;
+    }
 }
